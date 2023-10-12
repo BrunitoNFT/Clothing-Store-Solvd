@@ -1,7 +1,15 @@
 
 # API Documentation for Clothing Store Online
+
+
 - [API Documentation (Postman)](https://documenter.getpostman.com/view/23436771/2s9YR3cavw) 
 
+## TODO:
+- Dockerize the application
+- Transfrom jsonwebtoken to a handcraft library
+- Comment, buy, review a product by a user
+- Personal image
+- Login with google
 ## Get Started
 
 Install libraries
@@ -21,3 +29,13 @@ Run server (Changes doesn't affect)
   npm start
 ```
     
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`DATABASE_URL`
+`PORT`
+`NODE_ENV`
+`SECRET_PASSWORD`
+`JWT_EXPIRES_IN`
+`JWT_COOKIE_EXPIRES_IN`
