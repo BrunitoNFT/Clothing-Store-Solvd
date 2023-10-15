@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "target": "es6",
     "noImplicitAny": true,
+    "noEmit": true, // or "emitDeclarationOnly": true,
     "moduleResolution": "node",
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["jest.config.ts", "src/**/*", "test/**/*"]
 }

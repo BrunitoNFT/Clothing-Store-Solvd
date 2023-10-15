@@ -1,7 +1,6 @@
-import jwt from "jsonwebtoken";
+//import jwt from "jsonwebtoken";
 
-import dotenv from "dotenv";
-dotenv.config({ path: ".env" });
+import jwtHandcraft from "../utils/jwtHandcraft";
 
 import { AppError } from "../utils";
 
@@ -11,13 +10,12 @@ import mongoose, { ObjectId } from "mongoose";
 import { Response } from "express";
 import { IUser, IJWTPayload } from "../types";
 
-const SECRET_KEY = "secretkey";
-const JWT_EXPIRES_IN = "30d";
-const JWT_COOKIE_EXPIRES_IN = 90;
+//const SECRET_KEY = process.env.SECRET_PASSWORD || "secretkey";
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "2d";
+const JWT_COOKIE_EXPIRES_IN = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90;
 
 const signToken = (payload: { _id: ObjectId }) => {
-  console.log("Secrey key is: ", SECRET_KEY, process.env.SECRET_KEY);
-  return jwt.sign(payload, SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
+  return jwtHandcraft.signToken(payload, { expiresIn: JWT_EXPIRES_IN });
 };
 
 const createAndSendToken = (user: IUser, statusCode: number, res: Response) => {
@@ -85,7 +83,7 @@ const protect = catchAsync(async (req, res, next) => {
   }
 
   // 2) Verification token
-  const decoded = jwt.verify(token, SECRET_KEY) as IJWTPayload;
+  const decoded = jwtHandcraft.verifyToken(token) as IJWTPayload;
 
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded._id);
