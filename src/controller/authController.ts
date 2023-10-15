@@ -11,8 +11,8 @@ import { Response } from "express";
 import { IUser, IJWTPayload } from "../types";
 
 //const SECRET_KEY = process.env.SECRET_PASSWORD || "secretkey";
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "2d";
-const JWT_COOKIE_EXPIRES_IN = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90;
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "30d";
+const JWT_COOKIE_EXPIRES_IN = process.env.JWT_COOKIE_EXPIRES_IN || "30d";
 
 const signToken = (payload: { _id: ObjectId }) => {
   return jwtHandcraft.signToken(payload, { expiresIn: JWT_EXPIRES_IN });
@@ -21,7 +21,9 @@ const signToken = (payload: { _id: ObjectId }) => {
 const createAndSendToken = (user: IUser, statusCode: number, res: Response) => {
   const token = signToken({ _id: user._id });
   const cookieOptions = {
-    expires: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+    expires: new Date(
+      Date.now() + jwtHandcraft.parseTimeToMilliseconds(JWT_COOKIE_EXPIRES_IN)
+    ),
     httpOnly: true,
   };
   //if (process.env.NODE_ENV === "production") cookieOptions.secure = true;

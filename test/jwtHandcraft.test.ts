@@ -2,7 +2,6 @@ import {
   signToken,
   verifyToken,
   parseTimeToMilliseconds,
-  sum,
 } from "../src/utils/jwtHandcraft"; // Adjust the path accordingly
 
 describe("JWT Library", () => {

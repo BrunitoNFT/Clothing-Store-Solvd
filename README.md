@@ -1,15 +1,16 @@
-
 # API Documentation for Clothing Store Online
 
-
-- [API Documentation (Postman)](https://documenter.getpostman.com/view/23436771/2s9YR3cavw) 
+- [API Documentation (Postman)](https://documenter.getpostman.com/view/23436771/2s9YR3cavw)
 
 ## TODO:
-- Dockerize the application
-- Transfrom jsonwebtoken to a handcraft library
+
+- ✅ Transfrom jsonwebtoken to a handcraft library
+- ✅ Migrate app to typescript
+- Dockerize the application (Option to run it with Docker)
 - Comment, buy, review a product by a user
 - Personal image
 - Login with google
+
 ## Get Started
 
 Install libraries
@@ -18,24 +19,53 @@ Install libraries
   npm install
 ```
 
-Development mode (Typescript compilation and server restart while coding)
+### Scripts
+
+Development mode JS (Automatic typescript compilation and server runs the js code compiled.)
 
 ```bash
-  npm run dev
+  npm run dev-js
 ```
-Run server (Changes doesn't affect)
+
+Development mode TS ( Server runs the ts code restarting automatically while coding. It uses ts-node.)
 
 ```bash
-  npm start
+  npm run dev-ts
 ```
-    
+
+Production mode JS ( Server runs JS folder without restarting with changes.)
+
+```bash
+  npm run start-js
+```
+
+Production mode TS ( Server runs TS folder without restarting with changes.)
+
+```bash
+  npm run start-ts
+```
+
+All test are executed.
+
+```bash
+  npm test
+```
+
+A code analysis with eslint rules is executed
+
+```bash
+  npm run lint
+```
+
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to create a .env file and add the following environment variables to it.
 
-`DATABASE_URL`
-`PORT`
-`NODE_ENV`
-`SECRET_PASSWORD`
-`JWT_EXPIRES_IN`
-`JWT_COOKIE_EXPIRES_IN`
+To have a DATABASE_URL you should create an account in mongoDB atlas and create a DB with an user and password.
+
+`DATABASE_URL = mongodb+srv://<<DB_USER>>:<<DB_PASSWORD>>@clustersolvdclothstore.sgfq0cu.mongodb.net/?retryWrites=true&w=majority`
+`PORT = 8080`
+`NODE_ENV = production`
+`SECRET_PASSWORD = thisisasecretpasswordbyexample`
+`JWT_EXPIRES_IN = 30d`
+`JWT_COOKIE_EXPIRES_IN = 30`

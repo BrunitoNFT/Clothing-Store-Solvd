@@ -145,3 +145,4 @@ function parseTimeToMilliseconds(timeString: string): number {
 }
 
 export default { signToken, verifyToken, parseTimeToMilliseconds };
+export { signToken, verifyToken, parseTimeToMilliseconds };
