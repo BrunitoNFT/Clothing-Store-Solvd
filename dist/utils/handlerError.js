@@ -20,7 +20,7 @@ const handleValidationErrorDB = (err) => {
 };
 const handleMongoServerError = (err) => {
     console.log("handleMongoServerError: ", err.name, err.message);
-    return new _1.AppError("ASD", 400);
+    return new _1.AppError("There was an unexpected error in the server. Please try again later.", 500);
 };
 const handleJWTError = () => new _1.AppError("Invalid token. Please log in again!", 401);
 const handleJWTExpiredError = () => new _1.AppError("Your token has expired! Please log in again.", 401);
@@ -56,7 +56,9 @@ const sendErrorProd = (err, res) => {
         });
     }
 };
-const globalError = (err, req, res, next) => {
+const globalError = (err, req, res, 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+next) => {
     console.log("GLOBAL ERROR HANDLING: ");
     err.statusCode = err.statusCode || 500;
     err.status = err.status || "error";
@@ -83,4 +85,3 @@ const globalError = (err, req, res, next) => {
     }
 };
 exports.default = globalError;
-//# sourceMappingURL=handlerError.js.map

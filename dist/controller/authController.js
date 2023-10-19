@@ -13,24 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyRanges = exports.allowTo = exports.protect = exports.signup = exports.login = void 0;
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config({ path: ".env" });
+const jwtHandcraft_1 = __importDefault(require("../utils/jwtHandcraft"));
 const utils_1 = require("../utils");
 const userModel_1 = __importDefault(require("../models/userModel"));
 const utils_2 = require("../utils");
 const mongoose_1 = __importDefault(require("mongoose"));
-const SECRET_KEY = "secretkey";
-const JWT_EXPIRES_IN = "30d";
-const JWT_COOKIE_EXPIRES_IN = 90;
+//const SECRET_KEY = process.env.SECRET_PASSWORD || "secretkey";
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "30d";
+const JWT_COOKIE_EXPIRES_IN = process.env.JWT_COOKIE_EXPIRES_IN || "30d";
 const signToken = (payload) => {
-    console.log("Secrey key is: ", SECRET_KEY, process.env.SECRET_KEY);
-    return jsonwebtoken_1.default.sign(payload, SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
+    return jwtHandcraft_1.default.signToken(payload, { expiresIn: JWT_EXPIRES_IN });
 };
 const createAndSendToken = (user, statusCode, res) => {
     const token = signToken({ _id: user._id });
     const cookieOptions = {
-        expires: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + jwtHandcraft_1.default.parseTimeToMilliseconds(JWT_COOKIE_EXPIRES_IN)),
         httpOnly: true,
     };
     //if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
@@ -81,7 +78,7 @@ const protect = (0, utils_2.catchAsync)((req, res, next) => __awaiter(void 0, vo
         return next(new utils_1.AppError("You are not logged in! Please log in to get access", 401));
     }
     // 2) Verification token
-    const decoded = jsonwebtoken_1.default.verify(token, SECRET_KEY);
+    const decoded = jwtHandcraft_1.default.verifyToken(token);
     // 3) Check if user still exists
     const currentUser = yield userModel_1.default.findById(decoded._id);
     if (!currentUser) {
@@ -119,9 +116,8 @@ const verifyRanges = (0, utils_2.catchAsync)((req, res, next) => __awaiter(void 
     }
     console.log("userToDelete: ", userToDelete);
     if (userToDelete.role === "admin") {
-        return next(new utils_1.AppError("You can't modify or delete a user with admin role.", 403));
+        return next(new utils_1.AppError("You can't modify or delete a user with ADMIN role.", 403));
     }
     next();
 }));
 exports.verifyRanges = verifyRanges;
-//# sourceMappingURL=authController.js.map

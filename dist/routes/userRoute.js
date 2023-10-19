@@ -30,4 +30,3 @@ router.put("/:id", authController_1.verifyRanges, userController_1.updateOneUser
 router.delete("/:id", authController_1.verifyRanges, userController_1.deleteOneUser);
 //
 exports.default = router;
-//# sourceMappingURL=userRoute.js.map

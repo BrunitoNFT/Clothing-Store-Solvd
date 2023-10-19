@@ -6,9 +6,10 @@
 
 - ✅ Transfrom jsonwebtoken to a handcraft library
 - ✅ Migrate app to typescript
-- Dockerize the application (Option to run it with Docker)
+- ✅ Pagination and query features
 - Comment, buy, review a product by a user
 - Personal image
+- Dockerize the application (Option to run it with Docker)
 - Login with google
 
 ## Get Started
@@ -68,4 +69,4 @@ To have a DATABASE_URL you should create an account in mongoDB atlas and create 
 `NODE_ENV = production`
 `SECRET_PASSWORD = thisisasecretpasswordbyexample`
 `JWT_EXPIRES_IN = 30d`
-`JWT_COOKIE_EXPIRES_IN = 30`
+`JWT_COOKIE_EXPIRES_IN = 30d`

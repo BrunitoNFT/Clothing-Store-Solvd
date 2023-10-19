@@ -6,63 +6,66 @@ import bcrypt from "bcryptjs";
 import { AppError } from "../utils";
 import { IUserModel, IUser } from "../types";
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-    require: true,
-  },
-  dateOfBirth: {
-    type: Date,
-    required: true,
-    validate(value: string) {
-      const today = new Date();
-      const birthDate = new Date(value);
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      if (age < 18) {
-        throw new AppError(
-          "You must be at least 18 years old to use our services.",
-          400
-        );
-      }
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      require: true,
     },
-  },
+    dateOfBirth: {
+      type: Date,
+      required: true,
+      validate(value: string) {
+        const today = new Date();
+        const birthDate = new Date(value);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        if (age < 18) {
+          throw new AppError(
+            "You must be at least 18 years old to use our services.",
+            400
+          );
+        }
+      },
+    },
 
-  email: {
-    type: String,
-    trim: true,
-    require: true,
-    unique: true,
-    lowercase: true,
-    validate(value: string) {
-      if (!validator.isEmail(value)) {
-        throw new AppError(`The email provided ${value} is invalid.`, 404);
-      }
+    email: {
+      type: String,
+      trim: true,
+      require: true,
+      unique: true,
+      lowercase: true,
+      validate(value: string) {
+        if (!validator.isEmail(value)) {
+          throw new AppError(`The email provided ${value} is invalid.`, 404);
+        }
+      },
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+    password: {
+      type: String,
+      select: false,
+      minlength: 6,
+      required() {
+        return this.isNew; // Only required when creating a new user
+      },
+      validate(value: string) {
+        if (value.includes("password")) {
+          throw new Error("Invalid password.");
+        }
+      },
     },
   },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
-  password: {
-    type: String,
-    select: false,
-    minlength: 6,
-    required() {
-      return this.isNew; // Only required when creating a new user
-    },
-    validate(value: string) {
-      if (value.includes("password")) {
-        throw new Error("Invalid password.");
-      }
-    },
-  },
-});
+  { timestamps: true }
+);
 
 userSchema.virtual("products", {
   ref: "Product",

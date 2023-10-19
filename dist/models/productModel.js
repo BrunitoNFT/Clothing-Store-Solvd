@@ -26,7 +26,6 @@ const ProductSchema = new mongoose_1.default.Schema({
         default: 0,
         min: [0, "Min stock is 0"],
     },
-});
+}, { timestamps: true });
 const Product = mongoose_1.default.model("Product", ProductSchema);
 exports.default = Product;
-//# sourceMappingURL=productModel.js.map

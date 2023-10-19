@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const apiFeatures_1 = __importDefault(require("./apiFeatures"));
 const _1 = require("./");
 const _2 = require("./");
 /**
@@ -86,13 +87,27 @@ const getOne = (Model) => (0, _1.catchAsync)((req, res, next) => __awaiter(void 
     });
 }));
 const getAll = (Model) => (0, _1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const query = Model.find();
-    const doc = yield query;
-    res.status(200).json({
+    const query = new apiFeatures_1.default(Model.find(), req.query)
+        .filter()
+        .limitFields()
+        .paginate()
+        .sort();
+    const [doc, total] = yield Promise.all([
+        query.query.exec(),
+        query.totalDocuments(), // Executes the query to get the total number of documents
+    ]);
+    const obj = {
         status: "success",
         results: doc.length,
         data: doc,
-    });
+    };
+    if (query.page) {
+        obj.currentPage = query.page;
+        obj.totalPages = Math.ceil(total / query.limit);
+        if (obj.currentPage > obj.totalPages || obj.currentPage <= 0) {
+            throw new _2.AppError(`The page ${obj.currentPage} doesn't exist. Total pages count is ${obj.totalPages}.`, 400);
+        }
+    }
+    res.status(200).json(obj);
 }));
 exports.default = { getAll, getOne, createOne, deleteOne, updateOne };
-//# sourceMappingURL=handlerFactory.js.map

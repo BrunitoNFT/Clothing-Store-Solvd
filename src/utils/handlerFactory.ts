@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { Model, ObjectId } from "mongoose";
+import { Document, Model, ObjectId } from "mongoose";
+
+import APIFeatures from "./apiFeatures";
 
 import { catchAsync } from "./";
 import { AppError } from "./";
@@ -8,7 +10,7 @@ import { AppError } from "./";
  */
 import Product from "../models/productModel";
 import mongoose from "mongoose";
-import { RequestUser, MyDocument } from "../types";
+import { RequestUser, MyDocument, QueryStringParameters } from "../types";
 
 const deleteOne = <T>(Model: Model<T>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -98,14 +100,42 @@ const getOne = <T>(Model: Model<T>) =>
 
 const getAll = <T>(Model: Model<T>) =>
   catchAsync(async (req: Request, res: Response) => {
-    const query = Model.find();
+    const query = new APIFeatures(
+      Model.find(),
+      req.query as QueryStringParameters
+    )
+      .filter()
+      .limitFields()
+      .paginate()
+      .sort();
 
-    const doc = await query;
-    res.status(200).json({
+    const [doc, total] = await Promise.all([
+      query.query.exec(), // Executes the query to get documents based on filtering and pagination
+      query.totalDocuments(), // Executes the query to get the total number of documents
+    ]);
+    const obj: {
+      status: string;
+      results: number;
+      currentPage?: number;
+      totalPages?: number;
+      data: Document[];
+    } = {
       status: "success",
       results: doc.length,
       data: doc,
-    });
+    };
+    if (query.page) {
+      obj.currentPage = query.page;
+      obj.totalPages = Math.ceil(total / query.limit);
+      if (obj.currentPage > obj.totalPages || obj.currentPage <= 0) {
+        throw new AppError(
+          `The page ${obj.currentPage} doesn't exist. Total pages count is ${obj.totalPages}.`,
+          400
+        );
+      }
+    }
+
+    res.status(200).json(obj);
   });
 
 export default { getAll, getOne, createOne, deleteOne, updateOne };

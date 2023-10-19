@@ -38,4 +38,3 @@ const getAllUsers = handlerFactory_1.default.getAll(userModel_1.default);
 exports.getAllUsers = getAllUsers;
 const getOneUser = handlerFactory_1.default.getOne(userModel_1.default);
 exports.getOneUser = getOneUser;
-//# sourceMappingURL=userController.js.map

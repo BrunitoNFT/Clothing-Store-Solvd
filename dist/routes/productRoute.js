@@ -23,4 +23,3 @@ router.delete("/:id", productController_1.deleteOneProduct);
  * TODO: Review a product after buying
  */
 exports.default = router;
-//# sourceMappingURL=productRoute.js.map

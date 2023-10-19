@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request } from "express";
-import { JwtPayload } from "jsonwebtoken";
 import { Document, ObjectId, Model } from "mongoose";
 
 interface IAppError extends Error {
@@ -39,10 +38,15 @@ interface IUserModel extends Model<IUser> {
   }): Promise<IUser>;
 }
 
-interface IJWTPayload extends JwtPayload {
-  _id: string;
-  iat: number;
-  exp: number;
+interface IJWTPayload {
+  [key: string]: any;
+  iss?: string | undefined;
+  sub?: string | undefined;
+  aud?: string | string[] | undefined;
+  exp?: number | undefined;
+  nbf?: number | undefined;
+  iat?: number | undefined;
+  jti?: string | undefined;
 }
 
 interface RequestUser extends Request {
@@ -51,4 +55,13 @@ interface RequestUser extends Request {
 
 interface MyDocument extends Document {
   [key: string]: unknown; // This tells TypeScript this could be an object with any string keys.
+}
+
+// Interface for the query string parameters (customize this interface based on your needs and actual query parameters you expect)
+interface QueryStringParameters {
+  page?: string;
+  sort?: string;
+  limit?: string;
+  fields?: string;
+  [key: string]: string | undefined; // for other dynamic properties
 }

@@ -4,6 +4,7 @@
     "node": true
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "ignorePattern": ["test/**/*.ts", "jest.config.ts"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",

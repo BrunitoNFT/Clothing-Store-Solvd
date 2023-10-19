@@ -1,4 +1,3 @@
-//import jwt from "jsonwebtoken";
 
 import jwtHandcraft from "../utils/jwtHandcraft";
 
@@ -131,7 +130,7 @@ const verifyRanges = catchAsync(async (req, res, next) => {
   console.log("userToDelete: ", userToDelete);
   if (userToDelete.role === "admin") {
     return next(
-      new AppError("You can't modify or delete a user with admin role.", 403)
+      new AppError("You can't modify or delete a user with ADMIN role.", 403)
     );
   }
   next();

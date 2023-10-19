@@ -132,10 +132,4 @@ describe("JWT Library", () => {
       );
     });
   });
-
-  describe("sum", () => {
-    it("correctly adds two positive numbers", () => {
-      expect(sum(3, 4)).toBe(7);
-    });
-  });
 });

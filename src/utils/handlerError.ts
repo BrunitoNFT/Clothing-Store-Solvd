@@ -29,7 +29,10 @@ const handleValidationErrorDB = (err: mongoose.Error.ValidationError) => {
 
 const handleMongoServerError = (err: MongooseError) => {
   console.log("handleMongoServerError: ", err.name, err.message);
-  return new AppError("ASD", 400);
+  return new AppError(
+    "There was an unexpected error in the server. Please try again later.",
+    500
+  );
 };
 
 const handleJWTError = () =>
@@ -77,6 +80,7 @@ const globalError = (
   err: IAppError & MongooseError,
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
   console.log("GLOBAL ERROR HANDLING: ");

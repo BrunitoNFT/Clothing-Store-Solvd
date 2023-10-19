@@ -16,4 +16,3 @@ const getOneProduct = handlerFactory_1.default.getOne(productModel_1.default);
 exports.getOneProduct = getOneProduct;
 const createOneProduct = handlerFactory_1.default.createOne(productModel_1.default);
 exports.createOneProduct = createOneProduct;
-//# sourceMappingURL=productController.js.map
