@@ -1,7 +1,8 @@
 FROM node:alpine
 WORKDIR /usr/src/app
-COPY dist .
+RUN mkdir dist
+COPY dist/ dist/
 COPY package*.json .
 COPY .env .
 RUN npm ci
-CMD [ "node", "server.js" ]
+CMD [ "npx", "nodemon", "dist/server.js" ]

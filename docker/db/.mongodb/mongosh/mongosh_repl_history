@@ -1,0 +1,5 @@
+show dbs
+db.users.find()
+show collections
+use clothingdbsolvd
+show dbs

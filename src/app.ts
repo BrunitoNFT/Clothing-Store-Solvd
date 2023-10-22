@@ -18,10 +18,6 @@ app.use(cookieParser());
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-/* if (process.env.NODE_ENV === "development") {
-  console.log("Morgan activated");
-  app.use(morgan("dev"));
-} */
 app.use(morgan("dev"));
 
 app.use("/users", userRouter);

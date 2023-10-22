@@ -1,0 +1,18 @@
+services:
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27018:27017
+    volumes:
+      - ./db:/data/db
+
+  api:
+    build: ../.
+    ports:
+      - 8080:8080
+    volumes:
+      - ../dist:/usr/src/app/dist
+    depends_on:
+      - mongo_db

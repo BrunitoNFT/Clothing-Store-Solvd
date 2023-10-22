@@ -2,48 +2,31 @@
 
 - [API Documentation (Postman)](https://documenter.getpostman.com/view/23436771/2s9YR3cavw)
 
-## TODO:
 
-- ✅ Transfrom jsonwebtoken to a handcraft library
-- ✅ Migrate app to typescript
-- ✅ Pagination and query features
-- Comment, buy, review a product by a user
-- Personal image
-- Dockerize the application (Option to run it with Docker)
-- Login with google
 
-## Get Started
-
-Install libraries
-
-```bash
-  npm install
+## Requisites to run the project:
+- Docker installed 
+ ```bash
+  docker --version
+  # Normal output: Docker version 24.0.2
 ```
+- Run command ``` npm install ```
+
+
+
 
 ### Scripts
 
-Development mode JS (Automatic typescript compilation and server runs the js code compiled.)
+Development mode JS, automatic typescript compilation and files passed to docker. The js code compiled runs inside docker. The server is restarted with nodemon inside docker.
 
 ```bash
-  npm run dev-js
+  npm run dev
 ```
 
-Development mode TS ( Server runs the ts code restarting automatically while coding. It uses ts-node.)
+Production mode JS, changes in the local machine are not reflected inside the docker container. Server is ran with last dist version before running the command on docker. 
 
 ```bash
-  npm run dev-ts
-```
-
-Production mode JS ( Server runs JS folder without restarting with changes.)
-
-```bash
-  npm run start-js
-```
-
-Production mode TS ( Server runs TS folder without restarting with changes.)
-
-```bash
-  npm run start-ts
+  npm start
 ```
 
 All test are executed.
@@ -58,15 +41,31 @@ A code analysis with eslint rules is executed
   npm run lint
 ```
 
+Dist folder is deleted and compiled again
+
+```bash
+  npm run build
+```
+
 ## Environment Variables
 
-To run this project, you will need to create a .env file and add the following environment variables to it.
+To run this project, you will need a .env file with the following environment variables on it.
 
-To have a DATABASE_URL you should create an account in mongoDB atlas and create a DB with an user and password.
-
-`DATABASE_URL = mongodb+srv://<<DB_USER>>:<<DB_PASSWORD>>@clustersolvdclothstore.sgfq0cu.mongodb.net/?retryWrites=true&w=majority`
+`DATABASE_URL_CONTAINER = mongodb://mongo_db:27017`
 `PORT = 8080`
 `NODE_ENV = production`
-`SECRET_PASSWORD = thisisasecretpasswordbyexample`
+`SECRET_PASSWORD = thisisthesecretandtemporarykey`
 `JWT_EXPIRES_IN = 30d`
 `JWT_COOKIE_EXPIRES_IN = 30d`
+
+
+## TODO:
+
+- ✅ Transfrom jsonwebtoken to a handcraft library
+- ✅ Migrate aj to typescript
+- ✅ Pagination and query features
+- ✅ Dockerize the application 
+- Integrate auth to mongo container
+- Personal image
+- Comment, buy, review a product by a user
+- Login with google

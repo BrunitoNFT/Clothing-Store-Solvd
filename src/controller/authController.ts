@@ -85,7 +85,7 @@ const protect = catchAsync(async (req, res, next) => {
 
   // 2) Verification token
   const decoded = jwtHandcraft.verifyToken(token) as IJWTPayload;
-
+  console.log("Decoded is: ",decoded)
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded._id);
   if (!currentUser) {

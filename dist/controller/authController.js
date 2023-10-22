@@ -79,6 +79,7 @@ const protect = (0, utils_2.catchAsync)((req, res, next) => __awaiter(void 0, vo
     }
     // 2) Verification token
     const decoded = jwtHandcraft_1.default.verifyToken(token);
+    console.log("Decoded is: ", decoded);
     // 3) Check if user still exists
     const currentUser = yield userModel_1.default.findById(decoded._id);
     if (!currentUser) {
