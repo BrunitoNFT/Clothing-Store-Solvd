@@ -1,3 +1,5 @@
+[![Continous integration pipeline](https://github.com/BrunitoNFT/Clothing-Store-Solvd/actions/workflows/CI.yml/badge.svg)](https://github.com/BrunitoNFT/Clothing-Store-Solvd/actions/workflows/CI.yml)
+
 # API Documentation for Clothing Store Online
 
 - [API Documentation (Postman)](https://documenter.getpostman.com/view/23436771/2s9YR3cavw)
