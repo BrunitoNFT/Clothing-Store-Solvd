@@ -15,7 +15,12 @@ router.post("/login", authController_1.login);
 router.use(authController_1.protect); //
 //
 router.get("/me", userController_1.getMe);
-router.delete("/me", userController_1.deleteMeMiddleware, userController_1.deleteOneUser);
+router.delete("/me", userController_1.assignIdToUrl, userController_1.deleteOneUser);
+//
+router.get("/me/avatar", userController_1.assignIdToUrl, userController_1.getUserAvatar);
+router.get("/:id/avatar", userController_1.getUserAvatar);
+router.post("/me/avatar", userController_1.uploadImageMulterMiddleware, userController_1.postAvatar);
+router.delete("/me/avatar", userController_1.deleteAvatar);
 /**
  * ! Starting from this endpoint all users should be admin
  */

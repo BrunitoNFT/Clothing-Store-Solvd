@@ -1,6 +1,11 @@
 import mongoose, { Model } from "mongoose";
 import { IProduct } from "../types";
 
+const ImageSchema = new mongoose.Schema({
+  data: { type: Buffer, select: false },
+  href: String,
+});
+
 const ProductSchema = new mongoose.Schema(
   {
     name: {
@@ -24,9 +29,17 @@ const ProductSchema = new mongoose.Schema(
       default: 0,
       min: [0, "Min stock is 0"],
     },
+    images: {
+      type: [ImageSchema],
+      select: true,
+    },
   },
   { timestamps: true }
 );
+
+//This index can be helpful when querying products based on the owner (user).
+ProductSchema.index({ owner: 1 });
+
 
 const Product = mongoose.model<IProduct, Model<IProduct>>(
   "Product",

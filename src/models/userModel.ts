@@ -63,6 +63,10 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    avatar: {
+      type: Buffer,
+      select: false,
+    },
   },
   { timestamps: true }
 );
@@ -98,6 +102,8 @@ userSchema.statics.findByCredentials = async ({
   user.password = undefined;
   return user;
 };
+
+userSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model<IUser, IUserModel>("User", userSchema);
 

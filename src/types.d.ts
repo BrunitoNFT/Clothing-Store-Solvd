@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request } from "express";
-import { Document, ObjectId, Model } from "mongoose";
+import { Document, ObjectId, Model, Types } from "mongoose";
 
 interface IAppError extends Error {
   name: string;
@@ -17,6 +17,7 @@ interface IUser extends Document {
   name: string;
   email: string;
   password: string;
+  avatar: Buffer;
 }
 
 interface IProduct extends Document {
@@ -26,6 +27,7 @@ interface IProduct extends Document {
   price: number;
   owner: ObjectId;
   stock: number;
+  images: { data: Buffer }[];
 }
 
 interface IUserModel extends Model<IUser> {
@@ -64,4 +66,10 @@ interface QueryStringParameters {
   limit?: string;
   fields?: string;
   [key: string]: string | undefined; // for other dynamic properties
+}
+
+interface productImages {
+  _id: Types.ObjectId;
+  data: Buffer;
+  href: string;
 }

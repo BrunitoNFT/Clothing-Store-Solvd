@@ -4,6 +4,7 @@ import { IAppError } from "../types";
 import { AppError } from "./";
 import { CastError, MongooseError } from "mongoose";
 import mongoose from "mongoose";
+import { error } from "console";
 
 const handleCastErrorDB = (err: CastError) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
@@ -56,10 +57,10 @@ const sendErrorProd = (err: IAppError, res: Response) => {
   console.log("sendErrorProd");
   if (err.isOperational) {
     console.log("Error: ", err, err.message);
-    res.status(err.statusCode).json({
+    return res.status(err.statusCode).json({
       statusCode: err.statusCode,
       status: err.status,
-      message: err.message,
+      message: "Something went wrong. " + err.message,
     });
 
     // Programming or other unknown error: don't leak error details
@@ -68,10 +69,10 @@ const sendErrorProd = (err: IAppError, res: Response) => {
     console.error("ERROR 💥", err);
 
     // 2) Send generic message
-    res.status(500).json({
+    return res.status(500).json({
       statusCode: 500,
       status: "error",
-      message: "Something went very wrong!",
+      message: "Something went very wrong. " + err.message ? err.message : "",
     });
   }
 };

@@ -68,6 +68,10 @@ const userSchema = new mongoose_1.default.Schema({
             }
         },
     },
+    avatar: {
+        type: Buffer,
+        select: false,
+    },
 }, { timestamps: true });
 userSchema.virtual("products", {
     ref: "Product",
@@ -94,5 +98,6 @@ userSchema.statics.findByCredentials = ({ email, password, }) => __awaiter(void 
     user.password = undefined;
     return user;
 });
+userSchema.index({ email: 1 }, { unique: true });
 const User = mongoose_1.default.model("User", userSchema);
 exports.default = User;

@@ -11,9 +11,11 @@ const signToken = (
   payload: Record<string, unknown>,
   options?: { expiresIn: string }
 ) => {
-  let expiresIn = parseTimeToMilliseconds("2mo");
+  let expiresIn;
   if (options?.expiresIn) {
     expiresIn = parseTimeToMilliseconds(options?.expiresIn);
+  } else {
+    expiresIn = parseTimeToMilliseconds("2mo");
   }
 
   const currentTime = Date.now();

@@ -38,10 +38,10 @@ const sendErrorProd = (err, res) => {
     console.log("sendErrorProd");
     if (err.isOperational) {
         console.log("Error: ", err, err.message);
-        res.status(err.statusCode).json({
+        return res.status(err.statusCode).json({
             statusCode: err.statusCode,
             status: err.status,
-            message: err.message,
+            message: "Something went wrong. " + err.message,
         });
         // Programming or other unknown error: don't leak error details
     }
@@ -49,10 +49,10 @@ const sendErrorProd = (err, res) => {
         // 1) Log error
         console.error("ERROR 💥", err);
         // 2) Send generic message
-        res.status(500).json({
+        return res.status(500).json({
             statusCode: 500,
             status: "error",
-            message: "Something went very wrong!",
+            message: "Something went very wrong. " + err.message ? err.message : "",
         });
     }
 };

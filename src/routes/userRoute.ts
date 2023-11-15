@@ -14,7 +14,11 @@ import {
   updateOneUser,
   getAllUsers,
   getOneUser,
-  deleteMeMiddleware,
+  assignIdToUrl,
+  postAvatar,
+  deleteAvatar,
+  getUserAvatar,
+  uploadImageMulterMiddleware,
 } from "../controller/userController";
 
 const router = express.Router();
@@ -27,7 +31,12 @@ router.post("/login", login);
 router.use(protect); //
 //
 router.get("/me", getMe);
-router.delete("/me", deleteMeMiddleware, deleteOneUser);
+router.delete("/me", assignIdToUrl, deleteOneUser);
+//
+router.get("/me/avatar", assignIdToUrl, getUserAvatar);
+router.get("/:id/avatar", getUserAvatar);
+router.post("/me/avatar", uploadImageMulterMiddleware, postAvatar);
+router.delete("/me/avatar", deleteAvatar);
 /**
  * ! Starting from this endpoint all users should be admin
  */

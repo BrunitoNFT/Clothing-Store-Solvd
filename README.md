@@ -2,18 +2,16 @@
 
 - [API Documentation (Postman)](https://documenter.getpostman.com/view/23436771/2s9YR3cavw)
 
-
-
 ## Requisites to run the project:
-- Docker installed 
- ```bash
-  docker --version
-  # Normal output: Docker version 24.0.2
+
+- Docker installed
+
+```bash
+ docker --version
+ # Normal output: Docker version 24.0.2
 ```
-- Run command ``` npm install ```
 
-
-
+- Run command `npm install`
 
 ### Scripts
 
@@ -23,7 +21,7 @@ Development mode JS, automatic typescript compilation and files passed to docker
   npm run dev
 ```
 
-Production mode JS, changes in the local machine are not reflected inside the docker container. Server is ran with last dist version before running the command on docker. 
+Production mode JS, changes in the local machine are not reflected inside the docker container. Server is ran with the last dist version before running the command in docker.
 
 ```bash
   npm start
@@ -58,14 +56,21 @@ To run this project, you will need a .env file with the following environment va
 `JWT_EXPIRES_IN = 30d`
 `JWT_COOKIE_EXPIRES_IN = 30d`
 
-
 ## TODO:
 
 - ✅ Transfrom jsonwebtoken to a handcraft library
-- ✅ Migrate aj to typescript
+- ✅ Migrate js to typescript
 - ✅ Pagination and query features
-- ✅ Dockerize the application 
+- ✅ Dockerize the application
 - Integrate auth to mongo container
 - Personal image
 - Comment, buy, review a product by a user
 - Login with google
+
+## TODO course:
+
+- ✅ DB SQL squema with data types and conections.
+- ✅ Create a sql script to create all the database with tables following the grafic schema.
+- ✅ Create script to create more convinient indexes in mongodb and explain why.
+- Add unit testing with 65% coverage
+- Add CI/CD from Github Actions
