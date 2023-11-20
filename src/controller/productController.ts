@@ -103,7 +103,7 @@ const deleteProductImage = catchAsync(async (req, res, next) => {
   );
 
   product.images = imgObjArr;
-  const doc = await product.save();
+  await product.save();
   res.status(204).json({
     status: "success",
     data: null,

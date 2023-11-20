@@ -4,7 +4,6 @@ import { IAppError } from "../types";
 import { AppError } from "./";
 import { CastError, MongooseError } from "mongoose";
 import mongoose from "mongoose";
-import { error } from "console";
 
 const handleCastErrorDB = (err: CastError) => {
   const message = `Invalid ${err.path}: ${err.value}.`;

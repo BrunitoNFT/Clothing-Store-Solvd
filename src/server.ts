@@ -14,7 +14,7 @@ app.listen(port, () => {
 mongoose
   .connect(process.env.DATABASE_URL_CONTAINER)
   .then(() => console.log("DB CONTAINER connection successful!"))
-  .catch((e) => {
+  .catch(() => {
     console.log("There was an error connecting with the CONTAINER database.");
     process.exit();
   });

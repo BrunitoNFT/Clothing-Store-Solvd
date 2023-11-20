@@ -2,11 +2,10 @@ import { AppError, catchAsync } from "../utils";
 
 import User from "../models/userModel";
 import factory from "../utils/handlerFactory";
-import { NextFunction } from "express";
-import { RequestUser, IUser } from "../types";
 import multer from "multer";
 import sharp from "sharp";
 import mongoose from "mongoose";
+import { IUser } from "../types";
 
 const getMe = catchAsync(async (req, res) => {
   res.status(200).send({

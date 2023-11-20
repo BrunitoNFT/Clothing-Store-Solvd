@@ -74,5 +74,5 @@ To run this project, you will need a .env file with the following environment va
 - ✅ DB SQL squema with data types and conections.
 - ✅ Create a sql script to create all the database with tables following the grafic schema.
 - ✅ Create script to create more convinient indexes in mongodb and explain why.
-- Add unit testing with 65% coverage
 - Add CI/CD from Github Actions
+- Add unit testing with 65% coverage
