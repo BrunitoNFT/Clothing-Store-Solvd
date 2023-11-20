@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1699987678505" clover="3.2.0">
-  <project timestamp="1699987678505" name="All files">
+<coverage generated="1700523751428" clover="3.2.0">
+  <project timestamp="1700523751428" name="All files">
     <metrics statements="67" coveredstatements="62" conditionals="47" coveredconditionals="41" methods="4" coveredmethods="4" elements="118" coveredelements="107" complexity="0" loc="67" ncloc="67" packages="1" files="1" classes="1"/>
-    <file name="jwtHandcraft.ts" path="/Users/solvd/Desktop/OnlineClothingStore 2 - Typescript/src/utils/jwtHandcraft.ts">
+    <file name="jwtHandcraft.ts" path="/Users/solvd/Desktop/OnlineClothingStore2-Typescript/src/utils/jwtHandcraft.ts">
       <metrics statements="67" coveredstatements="62" conditionals="47" coveredconditionals="41" methods="4" coveredmethods="4"/>
       <line num="2" count="1" type="cond" truecount="3" falsecount="0"/>
       <line num="3" count="1" type="cond" truecount="3" falsecount="1"/>
