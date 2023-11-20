@@ -1,11 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `clothingStoreOnlineSolvd`;
 USE `clothingStoreOnlineSolvd`;
 
-CREATE TABLE IF NOT EXISTS `clothingStoreOnlineSolvd`.`role` (
-  `roleId` INT NOT NULL AUTO_INCREMENT,
-  `name` ENUM('user', 'admin') NOT NULL DEFAULT 'user',
-  PRIMARY KEY (`roleId`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);
 
 CREATE TABLE IF NOT EXISTS `clothingStoreOnlineSolvd`.`user` (
   `userId` INT NOT NULL AUTO_INCREMENT,
@@ -14,14 +9,10 @@ CREATE TABLE IF NOT EXISTS `clothingStoreOnlineSolvd`.`user` (
   `dateOfBirth` DATE NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `avatar` BLOB NULL DEFAULT NULL,
-  `roleId` INT NOT NULL,
+  `role` ENUM('user', 'admin') NOT NULL DEFAULT 'user',
   PRIMARY KEY (`userId`),
   UNIQUE INDEX `userId_UNIQUE` (`userId` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  INDEX `roleId_idx` (`roleId` ASC) VISIBLE,
-  CONSTRAINT `roleId`
-    FOREIGN KEY (`roleId`)
-    REFERENCES `clothingStoreOnlineSolvd`.`role` (`roleId`));
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
 CREATE TABLE IF NOT EXISTS `clothingStoreOnlineSolvd`.`product` (
   `productId` INT NOT NULL AUTO_INCREMENT,
